@@ -6,6 +6,7 @@ import HeaderComponent from "./components/HeaderComponent.jsx";
 import FooterComponent from "./components/FooterComponent.jsx";
 import CreateEmployeeComponent from "./components/CreateEmployeeComponent.jsx";
 import UpdateEmployeeComponent from "./components/UpdateEmployeeComponent.jsx";
+import ViewEmployeeComponent from "./components/ViewEmployeeComponent.jsx";
 
 function App() {
   return (
@@ -21,12 +22,12 @@ function App() {
               component={CreateEmployeeComponent}
             ></Route>
             <Route
-              path="/add-employee"
-              component={CreateEmployeeComponent}
-            ></Route>
-            <Route
               path="/update-employee/:id"
               component={UpdateEmployeeComponent}
+            ></Route>
+            <Route
+              path="/view-employee/:id"
+              component={ViewEmployeeComponent}
             ></Route>
           </Switch>
         </div>

@@ -9,6 +9,7 @@ export default class ListEmployeeComponent extends Component {
     };
     this.addEmployee = this.addEmployee.bind(this);
     this.editEmployee = this.editEmployee.bind(this);
+    this.deleteEmployee = this.deleteEmployee.bind(this);
   }
 
   componentDidMount() {
@@ -21,6 +22,19 @@ export default class ListEmployeeComponent extends Component {
   }
   editEmployee(id) {
     this.props.history.push(`/update-employee/${id}`);
+  }
+  deleteEmployee(id) {
+    EmployeeService.deleteEmployee(id).then((res) => {
+      this.setState({
+        employees: this.state.employees.filter(
+          (employee) => employee.id !== id
+        ),
+      });
+    });
+  }
+
+  viewEmployee(id) {
+    this.props.history.push(`/view-employee/${id}`);
   }
 
   render() {
@@ -48,12 +62,29 @@ export default class ListEmployeeComponent extends Component {
                   <td>{employee.firstName}</td>
                   <td>{employee.lastName}</td>
                   <td>{employee.emailId}</td>
-                  <button
-                    onClick={() => this.editEmployee(employee.id)}
-                    className="btn btn-info"
-                  >
-                    Update
-                  </button>
+                  <td>
+                    <button
+                      style={{ marginLeft: "10px", display: "inline" }}
+                      onClick={() => this.editEmployee(employee.id)}
+                      className="btn btn-info"
+                    >
+                      Update
+                    </button>
+                    <button
+                      style={{ marginLeft: "10px", display: "inline" }}
+                      onClick={() => this.deleteEmployee(employee.id)}
+                      className="btn btn-danger"
+                    >
+                      Delete
+                    </button>
+                    <button
+                      style={{ marginLeft: "10px", display: "inline" }}
+                      onClick={() => this.viewEmployee(employee.id)}
+                      className="btn btn-success"
+                    >
+                      View
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
