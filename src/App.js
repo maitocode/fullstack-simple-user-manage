@@ -5,6 +5,7 @@ import ListEmployeeComponent from "./components/ListEmployeeComponent.jsx";
 import HeaderComponent from "./components/HeaderComponent.jsx";
 import FooterComponent from "./components/FooterComponent.jsx";
 import CreateEmployeeComponent from "./components/CreateEmployeeComponent.jsx";
+import UpdateEmployeeComponent from "./components/UpdateEmployeeComponent.jsx";
 
 function App() {
   return (
@@ -18,6 +19,14 @@ function App() {
             <Route
               path="/add-employee"
               component={CreateEmployeeComponent}
+            ></Route>
+            <Route
+              path="/add-employee"
+              component={CreateEmployeeComponent}
+            ></Route>
+            <Route
+              path="/update-employee/:id"
+              component={UpdateEmployeeComponent}
             ></Route>
           </Switch>
         </div>
