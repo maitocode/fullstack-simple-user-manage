@@ -1,8 +1,10 @@
 package com.example.usermanage.controller;
 
+import com.example.usermanage.exception.ResourceNotFounrdException;
 import com.example.usermanage.model.Employee;
 import com.example.usermanage.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,26 @@ public class EmployeeController {
     @PostMapping("/employees")
     public Employee createEmployee(@RequestBody Employee employee) {
         return employeeRepository.save(employee);
+    }
+
+    @GetMapping("/employees/{id}")
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFounrdException("Employee not found"));
+        return ResponseEntity.ok(employee);
+    }
+
+    @PutMapping("/employees/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable  Long id, @RequestBody Employee employeeDetail) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFounrdException("Employee not found"));
+
+        employee.setFirstName(employeeDetail.getFirstName());
+        employee.setLastName(employeeDetail.getLastName());
+        employee.setEmailId(employeeDetail.getEmailId());
+
+        Employee updateEmployee = employeeRepository.save(employee);
+        return ResponseEntity.ok(updateEmployee);
     }
 
     @GetMapping("/cc")
